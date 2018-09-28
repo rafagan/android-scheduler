@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Android Schedule</string>
+    <string name="logo">logo</string>
+    <string name="appName">Agendalecimento</string>
+    <string name="login_txt">Entrar</string>
+    <string name="password_hint">Senha</string>
+    <string name="email_hint">E-mail</string>
 </resources>
