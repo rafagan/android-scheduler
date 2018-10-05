@@ -1,7 +1,6 @@
 package schedule.tutorial.rafagan.androidschedule
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ class PlacesAdapter: RecyclerView.Adapter<PlacesAdapter.PlacesHolder>() {
     var items = listOf<Place>()
 
     override fun getItemCount(): Int {
-        Log.d("Tamanho", items.size.toString())
         return items.size
     }
 

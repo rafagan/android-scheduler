@@ -6,4 +6,6 @@
     <string name="password_hint">Senha</string>
     <string name="email_hint">E-mail</string>
     <string name="hyphen">-</string>
+    <string name="see_times">Ver horários</string>
+    <string name="schedule">Agendar</string>
 </resources>
