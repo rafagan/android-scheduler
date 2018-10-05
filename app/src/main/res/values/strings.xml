@@ -5,4 +5,5 @@
     <string name="login_txt">Entrar</string>
     <string name="password_hint">Senha</string>
     <string name="email_hint">E-mail</string>
+    <string name="hyphen">-</string>
 </resources>
