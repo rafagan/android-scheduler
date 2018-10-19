@@ -44,11 +44,6 @@ class MainActivity : AppCompatActivity() {
         startActivity(myIntent)
     }
 
-    fun navigateToPlace() {
-        val place = Intent(this, PlaceActivity::class.java)
-        startActivity(place)
-    }
-
     fun loadPlaces() {
         val loading = findViewById<ProgressBar>(R.id.mainLoading)
         loading.visibility = View.VISIBLE
@@ -85,9 +80,5 @@ class MainActivity : AppCompatActivity() {
 
         val dividerItemDecoration = DividerItemDecoration(recyclerView.context, layoutManager.orientation)
         recyclerView.addItemDecoration(dividerItemDecoration)
-    }
-
-    fun seeTimes(view: View) {
-        this.navigateToPlace()
     }
 }

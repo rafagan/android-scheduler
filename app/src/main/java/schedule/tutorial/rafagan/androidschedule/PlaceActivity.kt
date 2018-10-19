@@ -10,12 +10,15 @@ import android.view.View
 import schedule.tutorial.rafagan.androidschedule.model.Schedule
 
 class PlaceActivity : AppCompatActivity() {
-    val adapter = SchedulesAdapter()
+    private val adapter = SchedulesAdapter()
+    private lateinit var placeId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_place)
 
+        val bundle = intent.extras
+        placeId = bundle.getString("placeId")
         configureScheduleLayout()
     }
 
