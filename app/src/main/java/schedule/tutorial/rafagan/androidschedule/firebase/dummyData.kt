@@ -1,6 +1,7 @@
 package schedule.tutorial.rafagan.androidschedule.firebase
 
 import schedule.tutorial.rafagan.androidschedule.model.Place
+import schedule.tutorial.rafagan.androidschedule.model.Schedule
 import schedule.tutorial.rafagan.androidschedule.model.fromPlaceToMap
 
 
@@ -38,11 +39,25 @@ fun generatePlaces(): Map<String, Map<String, String>> {
                     "23:30")))
     }
 
+fun generateSchedules(placeId: String): List<String> {
+    return listOf(
+            Schedule(placeId, "01:00"),
+            Schedule(placeId, "06:00"),
+            Schedule(placeId, "11:00"),
+            Schedule(placeId, "19:00"),
+            Schedule(placeId, "22:00")
+    ).map { it.time }
+}
 
 
 fun generateDatabase() {
     val connection = Database.createConnection()
-    val content = mapOf("database" to mapOf(
-            "places" to generatePlaces()))
-    connection.setValue(content)
+    val places = generatePlaces()
+
+    val content = mapOf("database" to mapOf("places" to places))
+    connection.setValue(content).addOnSuccessListener {
+        val placesRef = connection.child("database").child("places")
+        placesRef.child("1").child("schedules").setValue(generateSchedules("1"))
+        placesRef.child("2").child("schedules").setValue(generateSchedules("2"))
+    }
 }

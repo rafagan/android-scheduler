@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import schedule.tutorial.rafagan.androidschedule.firebase.Auth
 import schedule.tutorial.rafagan.androidschedule.firebase.Database
+import schedule.tutorial.rafagan.androidschedule.firebase.generateDatabase
 import schedule.tutorial.rafagan.androidschedule.model.Place
 import schedule.tutorial.rafagan.androidschedule.model.fromMapToPlace
 
