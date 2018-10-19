@@ -7,6 +7,8 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.Button
+import schedule.tutorial.rafagan.androidschedule.firebase.Auth
 import schedule.tutorial.rafagan.androidschedule.model.Place
 
 class MainActivity : AppCompatActivity() {
@@ -15,10 +17,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        if(!Utils.isLogged)
-//            this.navigateToLogin()
-
+        if(!Auth.isLoggedIn()) this.navigateToLogin()
         configurePlacesLayout()
+
+        val logout = findViewById<Button>(R.id.btn_logout)
+        logout.setOnClickListener {
+            Auth.logout()
+            navigateToLogin()
+        }
     }
 
     fun navigateToLogin() {

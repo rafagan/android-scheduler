@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import schedule.tutorial.rafagan.androidschedule.firebase.Auth
 
 
 class LoginActivity : AppCompatActivity() {
@@ -23,26 +24,35 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+        val password = findViewById<EditText>(R.id.passwordLogin)
+
         val button = findViewById<Button>(R.id.authBtnLogin)
-        button.setOnClickListener {
-            val text = email.text
+        button.setOnClickListener { _ ->
+            val emailTxt = email.text.toString()
+            val passwordTxt = password.text.toString()
 
-            if(text.isEmpty()) return@setOnClickListener
+            if(emailTxt.isEmpty()) return@setOnClickListener
 
-            if (!isValidEmail(text)) {
+            if (!isValidEmail(emailTxt)) {
                 Toast.makeText(applicationContext, "E-mail inválido", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            Utils.isLogged = true
-            val myIntent = Intent(this, MainActivity::class.java)
-            myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(myIntent)
+            Auth.instance.signInWithEmailAndPassword(emailTxt, passwordTxt)
+                    .addOnCompleteListener(this) {
+                        if(it.isSuccessful) {
+                            val myIntent = Intent(this, MainActivity::class.java)
+                            myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            startActivity(myIntent)
+                        } else {
+                            Toast.makeText(
+                                    applicationContext,
+                                    "E-mail ou senha incorretos",
+                                    Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
         }
-
-        // TODO: Desafio
-        // a) Tela de recuperação de senha
-        // b) Validação de senha: ter pelo menos 4 caracteres
     }
 
     private fun isValidEmail(target: CharSequence?): Boolean {
