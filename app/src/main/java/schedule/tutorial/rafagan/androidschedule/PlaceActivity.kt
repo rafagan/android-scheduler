@@ -26,7 +26,7 @@ class PlaceActivity : AppCompatActivity() {
         val list = mutableListOf<Schedule>()
         for (i in 0..23) {
             val leftZero = if(i < 10) "0" else ""
-            list.add(Schedule("1", "$leftZero$i:00"))
+            list.add(Schedule("1", "2018-10-19", "$leftZero$i:00"))
         }
 
         adapter.items = list

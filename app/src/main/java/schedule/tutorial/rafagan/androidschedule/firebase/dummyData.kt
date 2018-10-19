@@ -3,6 +3,7 @@ package schedule.tutorial.rafagan.androidschedule.firebase
 import schedule.tutorial.rafagan.androidschedule.model.Place
 import schedule.tutorial.rafagan.androidschedule.model.Schedule
 import schedule.tutorial.rafagan.androidschedule.model.fromPlaceToMap
+import schedule.tutorial.rafagan.androidschedule.model.fromScheduleToMap
 
 
 fun generatePlaces(): Map<String, Map<String, String>> {
@@ -39,14 +40,14 @@ fun generatePlaces(): Map<String, Map<String, String>> {
                     "23:30")))
     }
 
-fun generateSchedules(placeId: String): List<String> {
-    return listOf(
-            Schedule(placeId, "01:00"),
-            Schedule(placeId, "06:00"),
-            Schedule(placeId, "11:00"),
-            Schedule(placeId, "19:00"),
-            Schedule(placeId, "22:00")
-    ).map { it.time }
+fun generateSchedules(placeId: String, date: String): Map<String, Map<String, String>> {
+    return mapOf(
+            "01:00" to fromScheduleToMap(Schedule(placeId, date, "01:00")),
+            "06:00" to fromScheduleToMap(Schedule(placeId, date, "06:00")),
+            "11:00" to fromScheduleToMap(Schedule(placeId, date, "11:00")),
+            "19:00" to fromScheduleToMap(Schedule(placeId, date, "19:00")),
+            "22:00" to fromScheduleToMap(Schedule(placeId, date, "22:00"))
+    )
 }
 
 
@@ -57,7 +58,15 @@ fun generateDatabase() {
     val content = mapOf("database" to mapOf("places" to places))
     connection.setValue(content).addOnSuccessListener {
         val placesRef = connection.child("database").child("places")
-        placesRef.child("1").child("schedules").setValue(generateSchedules("1"))
-        placesRef.child("2").child("schedules").setValue(generateSchedules("2"))
+        placesRef
+                .child("1")
+                .child("schedules")
+                .child("2018-10-19")
+                .setValue(generateSchedules("1", "2018-10-19"))
+        placesRef
+                .child("2")
+                .child("schedules")
+                .child("2018-10-18")
+                .setValue(generateSchedules("2", "2018-10-18"))
     }
 }

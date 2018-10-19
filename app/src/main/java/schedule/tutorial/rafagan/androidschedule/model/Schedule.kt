@@ -1,23 +1,19 @@
 package schedule.tutorial.rafagan.androidschedule.model
 
-data class Schedule(val place: String, val time: String)
+data class Schedule(val placeId: String, val date: String, val time: String)
 
-fun fromScheduleToMap(place: Place): Map<String, String> {
+fun fromScheduleToMap(schedule: Schedule): Map<String, String> {
     return mapOf(
-            "id" to place.id,
-            "name" to place.name,
-            "description" to place.description,
-            "openTime" to place.openTime,
-            "closeTime" to place.closeTime
+            "placeId" to schedule.placeId,
+            "date" to schedule.date,
+            "time" to schedule.time
     )
 }
 
-fun fromMapToSchedule(place: Map<String, String>): Place {
-    return Place(
-            place["id"] ?: "",
-            place["name"] ?: "",
-            place["description"] ?: "",
-            place["openTime"] ?: "",
-            place["closeTime"] ?: ""
+fun fromMapToSchedule(schedule: Map<String, Any>): Schedule {
+    return Schedule(
+            (schedule["placeId"] as? String) ?: "",
+            (schedule["date"] as? String) ?: "",
+            (schedule["time"] as? String) ?: ""
     )
 }
