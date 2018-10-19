@@ -10,6 +10,7 @@ import android.view.View
 import schedule.tutorial.rafagan.androidschedule.model.Schedule
 
 class PlaceActivity : AppCompatActivity() {
+    val adapter = SchedulesAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,19 +19,24 @@ class PlaceActivity : AppCompatActivity() {
         configureScheduleLayout()
     }
 
+    fun loadSchedules() {
+        val list = mutableListOf<Schedule>()
+        for (i in 0..23) {
+            val leftZero = if(i < 10) "0" else ""
+            list.add(Schedule("1", "$leftZero$i:00"))
+        }
+
+        adapter.items = list
+        adapter.notifyDataSetChanged()
+    }
+
     fun configureScheduleLayout() {
         val recyclerView = findViewById<RecyclerView>(R.id.schedule_list)
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerView.layoutManager = layoutManager
 
-        val adapter = SchedulesAdapter()
-        adapter.items = listOf(
-                Schedule("1", "02:00"),
-                Schedule("1", "03:00"),
-                Schedule("1", "04:00"),
-                Schedule("1", "05:00"),
-                Schedule("1", "06:00")
-        )
+        adapter.items = listOf()
+        loadSchedules()
         recyclerView.adapter = adapter
 
         val dividerItemDecoration = DividerItemDecoration(recyclerView.context, layoutManager.orientation)

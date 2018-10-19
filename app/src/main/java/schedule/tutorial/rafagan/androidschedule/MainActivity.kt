@@ -1,6 +1,5 @@
 package schedule.tutorial.rafagan.androidschedule
 
-import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -16,7 +15,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import schedule.tutorial.rafagan.androidschedule.firebase.Auth
 import schedule.tutorial.rafagan.androidschedule.firebase.Database
-import schedule.tutorial.rafagan.androidschedule.firebase.generateDatabase
 import schedule.tutorial.rafagan.androidschedule.model.Place
 import schedule.tutorial.rafagan.androidschedule.model.fromMapToPlace
 
