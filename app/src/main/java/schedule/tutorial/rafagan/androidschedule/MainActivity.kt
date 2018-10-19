@@ -15,7 +15,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import schedule.tutorial.rafagan.androidschedule.firebase.Auth
 import schedule.tutorial.rafagan.androidschedule.firebase.Database
-import schedule.tutorial.rafagan.androidschedule.firebase.generateDatabase
 import schedule.tutorial.rafagan.androidschedule.model.Place
 import schedule.tutorial.rafagan.androidschedule.model.fromMapToPlace
 
@@ -45,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun loadPlaces() {
-        val loading = findViewById<ProgressBar>(R.id.mainLoading)
+        val loading = findViewById<ProgressBar>(R.id.main_loading)
         loading.visibility = View.VISIBLE
 
         Database.createConnection()
@@ -53,10 +52,14 @@ class MainActivity : AppCompatActivity() {
                 .child("places").addListenerForSingleValueEvent(object: ValueEventListener {
                     override fun onCancelled(p0: DatabaseError) {
                         Log.d("Database error", p0.toString())
+                        loading.visibility = View.INVISIBLE
                     }
 
                     override fun onDataChange(p0: DataSnapshot) {
-                        if(!p0.exists()) return
+                        if(!p0.exists()){
+                            loading.visibility = View.INVISIBLE
+                            return
+                        }
 
                         val list = mutableListOf<Place>()
                         p0.children.forEach {
