@@ -84,8 +84,8 @@ class ScheduleActivity : AppCompatActivity() {
         val loading = findViewById<ProgressBar>(R.id.job_loading)
         loading.visibility = View.VISIBLE
 
-        // TODO: Criar model de agendamento
-        // TODO: Popular dados
-        // TODO: Salvar dados
+        for(job in adapter.items) {
+            Log.d("Job", "${job.name} - ${job.isChecked}")
+        }
     }
 }
