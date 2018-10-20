@@ -79,4 +79,13 @@ class ScheduleActivity : AppCompatActivity() {
         val dividerItemDecoration = DividerItemDecoration(recyclerView.context, layoutManager.orientation)
         recyclerView.addItemDecoration(dividerItemDecoration)
     }
+
+    fun scheduleJobs(view: View) {
+        val loading = findViewById<ProgressBar>(R.id.job_loading)
+        loading.visibility = View.VISIBLE
+
+        // TODO: Criar model de agendamento
+        // TODO: Popular dados
+        // TODO: Salvar dados
+    }
 }
