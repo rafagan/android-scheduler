@@ -73,14 +73,14 @@ fun generateDatabase() {
         val placesRef1 = placesRef.child("1")
         val placesRef2 = placesRef.child("2")
 
-        placesRef1
-                .child("schedules")
-                .child("2018-10-19")
-                .setValue(generateSchedules("1", "2018-10-19"))
-        placesRef2
-                .child("schedules")
-                .child("2018-10-18")
-                .setValue(generateSchedules("2", "2018-10-18"))
+//        placesRef1
+//                .child("schedules")
+//                .child("2018-10-19")
+//                .setValue(generateSchedules("1", "2018-10-19"))
+//        placesRef2
+//                .child("schedules")
+//                .child("2018-10-18")
+//                .setValue(generateSchedules("2", "2018-10-18"))
 
         placesRef1
                 .child("jobs")

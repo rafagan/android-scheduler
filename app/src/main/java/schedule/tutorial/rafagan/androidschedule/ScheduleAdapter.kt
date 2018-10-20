@@ -32,11 +32,13 @@ class ScheduleAdapter: RecyclerView.Adapter<ScheduleAdapter.ScheduleHolder>() {
 
         private lateinit var id: String
         private lateinit var timeStr: String
+        private lateinit var dateStr: String
 
         fun bind(schedule: Schedule) {
             time.text = schedule.time
             id = schedule.placeId
             timeStr = schedule.time
+            dateStr = schedule.date
 
             makeSchedule.setOnClickListener {
                 navigateToSchedule()
@@ -47,6 +49,7 @@ class ScheduleAdapter: RecyclerView.Adapter<ScheduleAdapter.ScheduleHolder>() {
             val job = Intent(v.context, ScheduleActivity::class.java)
             job.putExtra("placeId", id)
             job.putExtra("time", timeStr)
+            job.putExtra("date", dateStr)
             v.context.startActivity(job)
         }
     }

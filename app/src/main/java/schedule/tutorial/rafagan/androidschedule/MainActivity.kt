@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        generateDatabase()
+//        generateDatabase()
 
         if(!Auth.isLoggedIn()) this.navigateToLogin()
         configurePlacesLayout()

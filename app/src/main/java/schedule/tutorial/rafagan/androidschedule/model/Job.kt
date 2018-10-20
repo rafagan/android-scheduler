@@ -21,3 +21,10 @@ fun fromMapToJob(job: Map<String, String>): Job {
             job["name"] ?: ""
     )
 }
+
+fun fromJobToMapToSchedule(job: Job): Map<String, String> {
+    return mapOf(
+            "jobId" to job.jobId,
+            "name" to job.name
+    )
+}
