@@ -21,13 +21,12 @@
         tools:text="Horário" />
 
     <Button
-        android:id="@+id/see_times"
+        android:id="@+id/make_schedule"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:onClick="makeSchedule"
         android:text="@string/schedule"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

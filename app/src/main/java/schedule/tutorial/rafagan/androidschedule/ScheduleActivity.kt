@@ -5,13 +5,22 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.widget.TextView
 import schedule.tutorial.rafagan.androidschedule.model.Job
 
 class ScheduleActivity : AppCompatActivity() {
+    private lateinit var placeId: String
+    private lateinit var time: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule)
+
+        val bundle = intent.extras
+        placeId = bundle.getString("placeId")
+        time = bundle.getString("time")
+
+        findViewById<TextView>(R.id.selected_time).text = time
 
         configureJob()
     }

@@ -22,7 +22,7 @@ import java.util.*
 
 
 class PlaceActivity : AppCompatActivity() {
-    private val adapter = SchedulesAdapter()
+    private val adapter = ScheduleAdapter()
     private lateinit var placeId: String
     private lateinit var calendar: CalendarView
 
@@ -73,16 +73,13 @@ class PlaceActivity : AppCompatActivity() {
                     }
 
                     override fun onDataChange(p0: DataSnapshot) {
-                        if(!p0.exists()){
-                            loading.visibility = View.INVISIBLE
-                            return
-                        }
-
                         val map = mutableMapOf<String, Schedule>()
-                        p0.children.forEach {
-                            @Suppress("UNCHECKED_CAST")
-                            val schedule = fromMapToSchedule(it.value as HashMap<String, String>)
-                            map[schedule.time] = schedule
+                        if(p0.exists()){
+                            p0.children.forEach {
+                                @Suppress("UNCHECKED_CAST")
+                                val schedule = fromMapToSchedule(it.value as HashMap<String, String>)
+                                map[schedule.time] = schedule
+                            }
                         }
 
                         for (i in 0..23) {
@@ -110,14 +107,5 @@ class PlaceActivity : AppCompatActivity() {
 
         val dividerItemDecoration = DividerItemDecoration(recyclerView.context, layoutManager.orientation)
         recyclerView.addItemDecoration(dividerItemDecoration)
-    }
-
-    fun navigateToSchedule() {
-        val schedule = Intent(this, ScheduleActivity::class.java)
-        startActivity(schedule)
-    }
-
-    fun makeSchedule(view: View) {
-        this.navigateToSchedule()
     }
 }

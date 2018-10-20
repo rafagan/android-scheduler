@@ -1,13 +1,15 @@
 package schedule.tutorial.rafagan.androidschedule
 
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import schedule.tutorial.rafagan.androidschedule.model.Schedule
 
-class SchedulesAdapter: RecyclerView.Adapter<SchedulesAdapter.ScheduleHolder>() {
+class ScheduleAdapter: RecyclerView.Adapter<ScheduleAdapter.ScheduleHolder>() {
     var items = listOf<Schedule>()
 
     override fun getItemCount(): Int {
@@ -24,11 +26,28 @@ class SchedulesAdapter: RecyclerView.Adapter<SchedulesAdapter.ScheduleHolder>() 
         holder.bind(current)
     }
 
-    class ScheduleHolder(v: View) : RecyclerView.ViewHolder(v) {
+    class ScheduleHolder(val v: View) : RecyclerView.ViewHolder(v) {
         private val time = itemView.findViewById<TextView>(R.id.schedule_time)!!
+        private val makeSchedule = itemView.findViewById<Button>(R.id.make_schedule)!!
+
+        private lateinit var id: String
+        private lateinit var timeStr: String
 
         fun bind(schedule: Schedule) {
             time.text = schedule.time
+            id = schedule.placeId
+            timeStr = schedule.time
+
+            makeSchedule.setOnClickListener {
+                navigateToSchedule()
+            }
+        }
+
+        fun navigateToSchedule() {
+            val job = Intent(v.context, ScheduleActivity::class.java)
+            job.putExtra("placeId", id)
+            job.putExtra("time", timeStr)
+            v.context.startActivity(job)
         }
     }
 }
