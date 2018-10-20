@@ -1,5 +1,6 @@
 package schedule.tutorial.rafagan.androidschedule
 
+import android.app.Activity
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import schedule.tutorial.rafagan.androidschedule.model.Schedule
+
 
 class ScheduleAdapter: RecyclerView.Adapter<ScheduleAdapter.ScheduleHolder>() {
     var items = listOf<Schedule>()
@@ -50,7 +52,9 @@ class ScheduleAdapter: RecyclerView.Adapter<ScheduleAdapter.ScheduleHolder>() {
             job.putExtra("placeId", id)
             job.putExtra("time", timeStr)
             job.putExtra("date", dateStr)
-            v.context.startActivity(job)
+
+            val activity = (v.context as Activity)
+            activity.startActivityForResult(job, 1)
         }
     }
 }

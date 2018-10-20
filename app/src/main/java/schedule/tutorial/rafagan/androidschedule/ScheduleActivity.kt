@@ -1,5 +1,7 @@
 package schedule.tutorial.rafagan.androidschedule
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
@@ -83,6 +85,12 @@ class ScheduleActivity : AppCompatActivity() {
     }
 
     fun scheduleJobs(view: View) {
+        val checkedItems = adapter.items.filter { it.isChecked }
+        if(checkedItems.isEmpty()) {
+            Toast.makeText(applicationContext, "Selecione ao menos um serviço!", Toast.LENGTH_LONG).show()
+            return
+        }
+
         val loading = findViewById<ProgressBar>(R.id.job_loading)
         loading.visibility = View.VISIBLE
 
@@ -106,6 +114,11 @@ class ScheduleActivity : AppCompatActivity() {
                 .addOnSuccessListener {
                     Toast.makeText(applicationContext, "Salvo!", Toast.LENGTH_SHORT).show()
                     loading.visibility = View.INVISIBLE
+
+                    val returnIntent = Intent()
+                    returnIntent.putExtra("STATUS", "OK")
+                    setResult(Activity.RESULT_OK, returnIntent)
+                    finish()
                 }
     }
 }

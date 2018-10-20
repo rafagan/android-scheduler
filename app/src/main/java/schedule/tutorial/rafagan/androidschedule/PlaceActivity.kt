@@ -25,6 +25,7 @@ class PlaceActivity : AppCompatActivity() {
     private val adapter = ScheduleAdapter()
     private lateinit var placeId: String
     private lateinit var calendar: CalendarView
+    private var timeMilliseconds: Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +39,8 @@ class PlaceActivity : AppCompatActivity() {
         calendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val c = Calendar.getInstance()
             c.set(year, month, dayOfMonth)
-            val timeMilliseconds = c.time.time
-            loadSchedules(timeMilliseconds)
+            timeMilliseconds = c.time.time
+            loadSchedules()
         }
 
         configureScheduleLayout()
@@ -51,8 +52,10 @@ class PlaceActivity : AppCompatActivity() {
         return formatter.format(Date(timeMilliseconds))
     }
 
-    fun loadSchedules(timeMilliseconds: Long) {
-        val dateStr = generateDate(timeMilliseconds)
+    fun loadSchedules() {
+        if(timeMilliseconds == null) return
+
+        val dateStr = generateDate(timeMilliseconds!!)
         val loading = findViewById<ProgressBar>(R.id.places_loading)
         loading.visibility = View.VISIBLE
 
@@ -102,10 +105,17 @@ class PlaceActivity : AppCompatActivity() {
         recyclerView.layoutManager = layoutManager
 
         adapter.items = listOf()
-        loadSchedules(calendar.date)
+        timeMilliseconds = calendar.date
+        loadSchedules()
         recyclerView.adapter = adapter
 
         val dividerItemDecoration = DividerItemDecoration(recyclerView.context, layoutManager.orientation)
         recyclerView.addItemDecoration(dividerItemDecoration)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1 && resultCode == RESULT_OK) loadSchedules()
     }
 }
