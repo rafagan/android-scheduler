@@ -10,10 +10,10 @@ fun fromScheduleToMap(schedule: Schedule): Map<String, String> {
     )
 }
 
-fun fromMapToSchedule(schedule: Map<String, Any>): Schedule {
+fun fromMapToSchedule(schedule: Map<String, String>): Schedule {
     return Schedule(
-            (schedule["placeId"] as? String) ?: "",
-            (schedule["date"] as? String) ?: "",
-            (schedule["time"] as? String) ?: ""
+            schedule["placeId"] ?: "",
+            schedule["date"] ?: "",
+            schedule["time"] ?: ""
     )
 }

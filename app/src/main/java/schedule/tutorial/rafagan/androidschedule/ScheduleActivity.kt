@@ -32,8 +32,8 @@ class ScheduleActivity : AppCompatActivity() {
 
         val adapter = JobAdapter()
         adapter.items = listOf(
-                Job("Pintura", false),
-                Job("Dança do ventre", false)
+                Job("1","1","Pintura"),
+                Job("1","2","Dança do ventre")
         )
         recyclerView.adapter = adapter
 

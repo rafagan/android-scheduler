@@ -1,9 +1,6 @@
 package schedule.tutorial.rafagan.androidschedule.firebase
 
-import schedule.tutorial.rafagan.androidschedule.model.Place
-import schedule.tutorial.rafagan.androidschedule.model.Schedule
-import schedule.tutorial.rafagan.androidschedule.model.fromPlaceToMap
-import schedule.tutorial.rafagan.androidschedule.model.fromScheduleToMap
+import schedule.tutorial.rafagan.androidschedule.model.*
 
 
 fun generatePlaces(): Map<String, Map<String, String>> {
@@ -50,6 +47,21 @@ fun generateSchedules(placeId: String, date: String): Map<String, Map<String, St
     )
 }
 
+fun generateJobs1(placeId: String): Map<String, Map<String, Any>> {
+    return mapOf(
+            "1" to fromJobToMap(Job(placeId, "1", "Pintura")),
+            "2" to fromJobToMap(Job(placeId, "2", "Dança do ventre"))
+    )
+}
+
+fun generateJobs2(placeId: String): Map<String, Map<String, Any>> {
+    return mapOf(
+            "1" to fromJobToMap(Job(placeId, "1", "Cartografia")),
+            "2" to fromJobToMap(Job(placeId, "2", "Corte a laser")),
+            "3" to fromJobToMap(Job(placeId, "2", "Bistrô"))
+    )
+}
+
 
 fun generateDatabase() {
     val connection = Database.createConnection()
@@ -58,15 +70,23 @@ fun generateDatabase() {
     val content = mapOf("database" to mapOf("places" to places))
     connection.setValue(content).addOnSuccessListener {
         val placesRef = connection.child("database").child("places")
-        placesRef
-                .child("1")
+        val placesRef1 = placesRef.child("1")
+        val placesRef2 = placesRef.child("2")
+
+        placesRef1
                 .child("schedules")
                 .child("2018-10-19")
                 .setValue(generateSchedules("1", "2018-10-19"))
-        placesRef
-                .child("2")
+        placesRef2
                 .child("schedules")
                 .child("2018-10-18")
                 .setValue(generateSchedules("2", "2018-10-18"))
+
+        placesRef1
+                .child("jobs")
+                .setValue(generateJobs1("1"))
+        placesRef2
+                .child("jobs")
+                .setValue(generateJobs2("2"))
     }
 }
