@@ -52,6 +52,7 @@ class ScheduleAdapter: RecyclerView.Adapter<ScheduleAdapter.ScheduleHolder>() {
             job.putExtra("placeId", id)
             job.putExtra("time", timeStr)
             job.putExtra("date", dateStr)
+//            job.putExtra("userId", dateStr)
 
             val activity = (v.context as Activity)
             activity.startActivityForResult(job, 1)
